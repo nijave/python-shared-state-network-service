@@ -1,0 +1,44 @@
+version: "2.0"
+services:
+  app1:
+    hostname: app1
+    build: ./
+    networks:
+      p2p:
+        ipv4_address: 172.22.0.10
+        ipv6_address: fc00::10
+  app2:
+    hostname: app2
+    build: ./
+    networks:
+      p2p:
+        ipv4_address: 172.22.0.20
+        ipv6_address: fc00::20
+
+  app3:
+    hostname: app3
+    build: ./
+    networks:
+      p2p:
+        ipv4_address: 172.22.0.30
+        ipv6_address: fc00::30
+    command: ["bash", "-c", "sleep 65 && python app.py"]
+
+  app4:
+    hostname: app4
+    build: ./
+    networks:
+      p2p:
+        ipv4_address: 172.22.0.40
+        ipv6_address: fc00::40
+    command: ["bash", "-c", "sleep 130 && python app.py"]
+
+networks:
+  p2p:
+#    driver: bridge
+#    enable_ipv6: true
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.22.0.0/24
+        - subnet: fc00::/64

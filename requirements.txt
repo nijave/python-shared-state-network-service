@@ -1,0 +1,4 @@
+ssdp
+orjson
+pysyncobj
+cryptography
